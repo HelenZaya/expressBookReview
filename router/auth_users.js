@@ -45,7 +45,7 @@ regd_users.post('/login', (req, res) => {
 
 // Task 9: Add or modify a book review (authenticated)
 regd_users.put('/auth/review/:isbn', (req, res) => {
-  const token = req.session.token;
+  const token = req.session.token || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
   if (!token) {
     return res.status(401).json({ message: "Not logged in" });
   }
@@ -66,7 +66,7 @@ regd_users.put('/auth/review/:isbn', (req, res) => {
 
 // Task 10: Delete a book review (authenticated)
 regd_users.delete('/auth/review/:isbn', (req, res) => {
-  const token = req.session.token;
+  const token = req.session.token || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
   if (!token) {
     return res.status(401).json({ message: "Not logged in" });
   }
